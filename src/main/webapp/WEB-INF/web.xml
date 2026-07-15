@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WEB.XML — Deployment descriptor for the Items Management System.
+
+  This is a Servlet 4.0 web application (matching the jakarta/javax namespace).
+  The application primarily uses annotations (@WebServlet, @WebFilter) for
+  configuration, so this file is minimal.
+
+  What's configured here:
+    1. Application display name (for IDE/container identification)
+    2. Error pages for common HTTP error codes and exceptions
+       - 404 (Not Found) → error.jsp
+       - 500 (Internal Server Error) → error.jsp
+       - Any java.lang.Throwable → error.jsp
+
+  The error-page configuration acts as a secondary catch-all in case the
+  ErrorFilter fails or is bypassed. The ErrorFilter handles most errors
+  at the filter level (before they reach the container), while this config
+  handles errors that occur outside the filter chain (e.g., static resources,
+  URL mapping errors).
+
+  NOTE: The DataSource is configured via META-INF/context.xml using Tomcat's
+  JNDI resource injection, not through web.xml.
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- Application name shown in IDE consoles and server status pages -->
+    <display-name>Items Management System</display-name>
+
+    <!-- 404 Not Found → styled error page -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+
+    <!-- 500 Internal Server Error → styled error page -->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+
+    <!-- Any uncaught Throwable → styled error page -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+
+</web-app>

@@ -1,0 +1,11 @@
+/*!
+ * STYLE.CSS — Global stylesheet for the Items Management System.
+ *
+ * NOTE: All visual styling is now handled by Tailwind CSS v4 via CDN.
+ * This file exists only for legacy reference. Tailwind classes are used
+ * directly in the JSP files, so no custom CSS is needed here.
+ *
+ * Tailwind configuration (theme, animations) is in inc/head.jsp
+ * inside the <style type="text/tailwindcss"> block.
+ */
+/* All styling is handled by Tailwind CDN */
