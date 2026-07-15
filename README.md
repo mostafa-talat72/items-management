@@ -38,6 +38,13 @@ Built with **Java Servlets + JSP + JDBC + Oracle Database**, styled with **Tailw
 - **Cascading Delete** — Deleting an item automatically removes its detail record
 - **Styled Confirmation** — Delete uses a styled modal, not the browser's native `confirm()`
 
+### Session & Cookie Management
+- **Login Session:** On successful login, an HTTP session is created with `IsLoggedIn=true` and the full `User` object stored as `session.setAttribute("user", user)`. All protected actions check for this session before proceeding.
+- **Remember Me Cookie:** A cookie named `rememberUserId` is set at login (1-hour expiry, `HttpOnly=true`, path `/`). If a user visits without an active session, `UserController.doGet()` checks for this cookie and triggers an auto-login via the `selectUser` action, which looks up the user by ID and recreates the session.
+- **Logout:** Invalidates the session (`session.invalidate()`) and clears the cookie (`maxAge=0`), then redirects to the login page.
+- **Profile Refresh:** The `selectUser` action is also used after profile/password updates to reload the `User` object into the session with the latest data, then redirects back to the profile page.
+- **No Session in JSP:** The cookie check happens in the controller `doGet()`, not in JSP scriptlets, to avoid `IllegalStateException` from trying to modify a committed response.
+
 ### Validation & Error Handling
 - **Two-Phase Validation** — Client-side format checks BEFORE DB call, business rules merged with SQL errors on failure
 - **Field-Level Errors** — Red borders, SVG icons, fade-in animations next to each invalid field
