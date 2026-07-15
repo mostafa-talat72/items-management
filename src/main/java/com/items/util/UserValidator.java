@@ -83,6 +83,13 @@ public class UserValidator {
         checkPassword(newPassword, errors);
         // Confirm passwords match
         checkConfirmPassword(newPassword, confirmNewPassword, errors);
+        // Rename keys to match JSP field names ("newPassword" / "confirmNewPassword")
+        if(errors.containsKey("password")) {
+            errors.put("newPassword", errors.remove("password"));
+        }
+        if(errors.containsKey("confirmPassword")) {
+            errors.put("confirmNewPassword", errors.remove("confirmPassword"));
+        }
         return errors;
     }
 

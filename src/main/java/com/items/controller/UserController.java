@@ -321,8 +321,9 @@ public class UserController extends HttpServlet {
         user.setEmail(email);
         try {
             if(userService.updateUserInfo(user)) {
-                // Success — re-load the user and redirect to profile page
-                String encodedPath = URLEncoder.encode(request.getContextPath() + "/profile.jsp", "UTF-8");
+                // Success — re-load the user and redirect to profile page with success message
+                String redirectPath = request.getContextPath() + "/profile.jsp?success=Profile+updated+successfully.";
+                String encodedPath = URLEncoder.encode(redirectPath, "UTF-8");
                 response.sendRedirect(request.getContextPath() + "/userController?action=selectUser&id=" + id + "&redirectPath=" + encodedPath);
             } else {
                 response.sendRedirect(request.getContextPath() + "/profile.jsp");
@@ -375,8 +376,9 @@ public class UserController extends HttpServlet {
 
         try {
             if(userService.updateUserPassword(existingUser)) {
-                // Success — re-load the user and redirect
-                String encodedPath = URLEncoder.encode(request.getContextPath() + "/profile.jsp", "UTF-8");
+                // Success — re-load the user and redirect with success message
+                String redirectPath = request.getContextPath() + "/profile.jsp?success=Password+updated+successfully.";
+                String encodedPath = URLEncoder.encode(redirectPath, "UTF-8");
                 response.sendRedirect(request.getContextPath() + "/userController?action=selectUser&id=" + id + "&redirectPath=" + encodedPath);
             } else {
                 response.sendRedirect(request.getContextPath() + "/profile.jsp");
